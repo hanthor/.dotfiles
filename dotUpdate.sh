@@ -19,6 +19,7 @@ if [ ! -e /tmp/dotfiles ]; then
 
     brew bundle dump --force --file=~/.dotfiles/Brewfile
     flatpak list --app -u --columns=application > ~/.dotfiles/Flatfile
+    flatpak list --app --columns=application >> ~/.dotfiles/Flatfile
     code --list-extensions > ~/.dotfiles/CodeExtensionsfile
     dconf dump /org/gnome/Ptyxis/ > ~/.dotfiles/dconf/ptyxis.conf
     gnome-extensions list --user --active --enabled > ~/.dotfiles/gnome-extensions-list

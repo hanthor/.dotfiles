@@ -1,4 +1,5 @@
 brew "gcc"
+brew "gh"
 brew "ramalama"
 vscode "github.copilot"
 vscode "github.copilot-chat"
