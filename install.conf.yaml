@@ -1,0 +1,35 @@
+- defaults:
+    link:
+      relink: true
+
+- clean: ['~']
+
+- link:
+    ~/.profile: profile
+    ~/.zshrc:
+      force: true
+      path: zshrc
+    ~/.gitconfig: gitconfig
+    ~/.oh-my-zsh:
+      force: true
+      path: ohmyzsh
+
+- shell:
+  - [git submodule update --init --recursive, Installing submodules]
+  - [flatpak --user remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo, Adding FlatHub repo]
+  - command: brew bundle install --file=~/.dotfiles/Brewfile
+    description: Restoring from Brewfile
+    stdout: true
+    stderr: true
+  - command: flatpak install -y -u $(cat ~/.dotfiles/Flatfile)
+    stdout: true
+    stderr: true
+    description: Restoring from Flatfile
+  - command: dconf load /org/gnome/Ptyxis/ < .dotfiles/dconf/ptyxis.conf
+    description: Restoring Ptyxis settings
+    stdout: true
+    stderr: true
+  - command: cat ~/.dotfiles/gnome-extensions-list | xargs -L 1 busctl --user call org.gnome.Shell.Extensions /org/gnome/Shell/Extensions org.gnome.Shell.Extensions InstallRemoteExtension s
+    description: Installing Gnome Extensions
+    stdout: true
+    stderr: true
