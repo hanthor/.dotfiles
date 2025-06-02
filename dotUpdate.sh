@@ -10,17 +10,15 @@ if [ ! -e /tmp/dotfiles ]; then
         echo "Done updating dotfiles";
         echo "Installing dotfiles/apps";
         brew bundle --file=~/.dotfiles/Brewfile
-        flatpak install -y -u "$(cat ~/.dotfiles/Flatfile)"
-        cat ~/.dotfiles/CodeExtensionsfile | xargs -L 1 echo code --install-extension
+        flatpak install -y --system "$(cat ~/.dotfiles/Flatfile)"
         echo "Done installing dotfiles/apps";
     fi
 
-    topgrade --disable=shell --yes
+    topgrade --disable=shell --disable=linux --yes
 
     brew bundle dump --force --file=~/.dotfiles/Brewfile
     flatpak list --app -u --columns=application > ~/.dotfiles/Flatfile
     flatpak list --app --columns=application >> ~/.dotfiles/Flatfile
-    code --list-extensions > ~/.dotfiles/CodeExtensionsfile
     dconf dump /org/gnome/Ptyxis/ > ~/.dotfiles/dconf/ptyxis.conf
     gnome-extensions list --user --active --enabled > ~/.dotfiles/gnome-extensions-list
     git add .
