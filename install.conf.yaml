@@ -10,13 +10,11 @@
       force: true
       path: zshrc
     ~/.gitconfig: gitconfig
-    ~/.oh-my-zsh:
-      force: true
-      path: ohmyzsh
+    ~/.config/config.fish: config.fish
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
-  - [flatpak --user remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo, Adding FlatHub repo]
+  - [flatpak --system remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo, Adding FlatHub repo]
   - command: brew bundle install --file=~/.dotfiles/Brewfile
     description: Restoring from Brewfile
     stdout: true
@@ -29,7 +27,7 @@
     description: Restoring Ptyxis settings
     stdout: true
     stderr: true
-  - command: cat ~/.dotfiles/gnome-extensions-list | xargs -L 1 busctl --user call org.gnome.Shell.Extensions /org/gnome/Shell/Extensions org.gnome.Shell.Extensions InstallRemoteExtension s
+  - command: cat ~/.dotfiles/gnome-extensions-list | xargs -L 1 busctl --system call org.gnome.Shell.Extensions /org/gnome/Shell/Extensions org.gnome.Shell.Extensions InstallRemoteExtension s
     description: Installing Gnome Extensions
     stdout: true
     stderr: true
