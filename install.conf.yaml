@@ -6,9 +6,6 @@
 
 - link:
     ~/.profile: profile
-    ~/.zshrc:
-      force: true
-      path: zshrc
     ~/.gitconfig: gitconfig
     ~/.config/config.fish: config.fish
 
